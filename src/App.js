@@ -1,5 +1,6 @@
 import './CSS/App.css';
 import './CSS/Header.scss';
+import Table from './views/Table';
 import { BsSearch } from "react-icons/bs";
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
           <input type="search" placeholder='Search...'></input>
         </div>
       </header>
+
+      <Table></Table>
     </div>
   );
 }

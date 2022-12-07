@@ -1,0 +1,64 @@
+.table {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 8px;
+  border-spacing: 0;
+
+
+  thead, tbody, tr {
+    display: block;
+  }
+
+  tr {
+    padding: 10px;
+    display: flex;
+
+    .copied-text-column {
+      flex: 1;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0 10px;
+    }
+
+    .icon {
+      color: hsl(0, 0%, 40%);
+    }
+
+    .disabled {
+      opacity: 50%;
+    }
+
+    .red-icon {
+      color: red;
+    }
+
+    .yellow-icon {
+      color: yellow;
+    }
+  }
+
+  thead {
+    border-radius: 7px 7px 0 0;
+    background: lightgray;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid lightgray;
+    }
+
+    tr:hover {
+      background-color: hsl(0, 0%, 95%);
+
+      .disabled-icon {
+        opacity: 100%;
+      }
+    }
+  }
+}
+
+.helpText, .confirmationText {
+  display: none;
+}
