@@ -1,22 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import { BsSearch } from "react-icons/bs";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="title">
+        Clipboard!
+
+        {/* Search Bar */}
+        <div className='search-bar'>
+          <BsSearch />  
+          <input type="search" placeholder='Search...'></input>
+        </div>
       </header>
     </div>
   );
