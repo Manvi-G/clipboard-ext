@@ -1,4 +1,5 @@
-import './App.css';
+import './CSS/App.css';
+import './CSS/Header.scss';
 import { BsSearch } from "react-icons/bs";
 
 function App() {
