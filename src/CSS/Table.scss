@@ -3,6 +3,9 @@
   border: 1px solid darkgray;
   border-radius: 8px;
   border-spacing: 0;
+  white-space: nowrap;
+  // white-space: normal;
+  table-layout: fixed;
 
 
   thead, tbody, tr {
@@ -16,6 +19,8 @@
     .copied-text-column {
       flex: 1;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     th, td {

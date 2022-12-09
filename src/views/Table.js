@@ -29,7 +29,13 @@ const copiedItems = [
   {
     id: 4,
     selected: false,
-    text: 'This is your copied text 4',
+    text: 'This is your copied text 4.This is your copied text 4.This is your copied text 4This is your copied text 4.This is your copied text 4.This is your copied text 4',
+    favorite: false,
+  },
+  {
+    id: 5,
+    selected: false,
+    text: 'This is your copied text 5',
     favorite: false,
   },
 ];
@@ -92,16 +98,35 @@ class Table extends React.Component {
     documentQuery.style.borderRadius = '5px';
   }
 
+  isTextTruncated(itemId) {
+    const currentRow = document.querySelector(`.item-id-${itemId}`);
+
+    if(currentRow) {
+      return currentRow.offsetWidth < currentRow.scrollWidth;
+    }
+
+    return false;
+  }
+
   // Display Help Text message when mouse hovers over a row
-  onHover(event, textContent, padding = 30) {
+  onHover(event, textContent, padding, itemId = '') {
     const helpText = document.querySelector('.helpText');
     this.updateHelpTexts(event, helpText, textContent, padding);
+
+    // display entire row content if truncated on hover
+    if(this.isTextTruncated(itemId)) {
+      const tableContainer = document.querySelector('.table');
+      tableContainer.style.whiteSpace = 'normal';
+    }
   }
 
   // Remove the help text message on hover out
   onHoverOut() {
     const helpText = document.querySelector('.helpText');
     helpText.style.display = "None";
+
+    const tableContainer = document.querySelector('.table');
+    tableContainer.style.whiteSpace = 'nowrap';
   }
 
   copyToClipboard(copiedText) {
@@ -191,7 +216,7 @@ class Table extends React.Component {
     this.showMessageOnDelete(totalSelected);
   }
 
-  // Show message on bottom: 1 Deleted Undo - when a text is deletec
+  // Show message on bottom: 1 Deleted Undo - when a text is deleted
   showMessageOnDelete(numberDeleted) {
     const container = document.querySelector('.deleteMessage');
     container.style.display = "block";
@@ -271,7 +296,7 @@ class Table extends React.Component {
                     scope="col"
                     className={`icon cursor-pointer`}
                     onMouseOver={(event) => this.onHover(event, 'Merge All', 10)}
-                    onMouseOut={(event) => this.onHoverOut(event)}
+                    onMouseOut={() => this.onHoverOut()}
                     onClick={() => this.mergeSelected(event)}
                   >
                     {this.isAnyRowSelected() ? <CgArrowsMergeAltV/> : ''}
@@ -280,7 +305,7 @@ class Table extends React.Component {
                     scope="col"
                     className={`icon cursor-pointer`}
                     onMouseOver={(event) => this.onHover(event, 'Copy All', 10)}
-                    onMouseOut={(event) => this.onHoverOut(event)}
+                    onMouseOut={() => this.onHoverOut()}
                     onClick={(event) => this.copySelected(event)}
                   >
                     {this.isAnyRowSelected() ? <VscCopy/> : ''}
@@ -306,11 +331,10 @@ class Table extends React.Component {
                         onChange={(e) => this.onItemCheck(e, item)}
                       />
                     </th>
-                    {/* TODO: truncate text to single line and display complete one on hover */}
                     <td
-                      className={`copied-text-column cursor-pointer`}
-                      onMouseOver={(event) => this.onHover(event, 'Click to Copy')}
-                      onMouseOut={(event) => this.onHoverOut(event)}
+                      className={`copied-text-column cursor-pointer item-id-${item.id}`}
+                      onMouseOver={(event) => this.onHover(event, 'Click to Copy', 30, item.id)}
+                      onMouseOut={() => this.onHoverOut()}
                       onClick={(event) => this.copyText(event, item.text)}
                     >
                       {item.text}
