@@ -1,5 +1,6 @@
 import React from "react";
 import '../CSS/Table.scss';
+import '../CSS/PartyAnimation.css';
 
 import { VscCopy } from "react-icons/vsc";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -170,6 +171,15 @@ class Table extends React.Component {
     }, 1000);
   }
 
+  makeItParty() {
+    const partyPopper = document.querySelector('.party-popper-container');
+    partyPopper.style.display = "flex";
+
+    setTimeout(() => {
+      partyPopper.style.display = "none";
+    }, 2000);
+  }
+
   // Mark an item as favorite
   markFavorite(itemId) {
     let tempList = this.state.tableContent;
@@ -179,6 +189,8 @@ class Table extends React.Component {
     this.setState({
       tableContent: tempList,
     });
+
+    this.makeItParty();
   }
 
   // Delete an item from the copiedText list
@@ -271,11 +283,21 @@ class Table extends React.Component {
     });
   }
 
-  //TODO: Add animations for the favorite and delete maybe?
-
   render() {
     return (
       <div className="container">
+      <div className="party-popper-container">
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+        <div className="party-piece"></div>
+      </div>
         <div className="row">
           <div className="col-md-12">
             <table className="table">

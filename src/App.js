@@ -3,6 +3,7 @@ import './CSS/Header.scss';
 import React from "react";
 
 import Table from './views/Table';
+import HeaderAnimation from './views/HeaderAnimation';
 import { BsSearch } from "react-icons/bs";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <header className="title">
         Clipboard!
+        <HeaderAnimation></HeaderAnimation>
 
         {/* Search Bar */}
         {/* TODO: Implement the search functionality */}
