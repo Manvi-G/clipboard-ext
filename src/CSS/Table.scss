@@ -35,7 +35,7 @@
     }
 
     .yellow-icon {
-      color: yellow;
+      color: #ccaa00;
     }
   }
 
@@ -59,6 +59,31 @@
   }
 }
 
-.helpText, .confirmationText {
+.helpText {
   display: none;
+}
+
+.deleteMessage {
+  display: none;
+  text-align: end;
+  padding-top: 25px;
+
+  span {
+    background: gray;
+    padding: 10px;
+      border-radius: 8px 0 0 8px;
+      color: white;
+
+    &.undo {
+      border-radius: 0 8px 8px 0;
+      padding-left: 0;
+      color: lightblue;
+      font-style: oblique;
+      text-decoration: underline;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

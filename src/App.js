@@ -8,7 +8,6 @@ import { BsSearch } from "react-icons/bs";
 function App() {
   // TODO: Listen to copy events on the webpage
 
-  console.log(chrome.runtime);  
   return (
     <div className="App">
       <header className="title">

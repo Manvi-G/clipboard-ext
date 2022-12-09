@@ -4,8 +4,9 @@ import '../CSS/Table.scss';
 import { VscCopy } from "react-icons/vsc";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
+import { CgArrowsMergeAltV } from "react-icons/cg";
 
-// Copy the items from the webpage - include images
+// TODO: Copy the items from the webpage - include images
 const copiedItems = [
   {
     id: 1,
@@ -39,6 +40,7 @@ class Table extends React.Component {
     this.state = {
       tableContent: copiedItems,
       allChecked: false,
+      contentBeforeDelete: [],
     };
   }
 
@@ -156,6 +158,10 @@ class Table extends React.Component {
 
   // Delete an item from the copiedText list
   deleteItem(itemId) {
+    this.setState({
+      contentBeforeDelete: [...this.state.tableContent],
+    });
+
     let tempList = this.state.tableContent;
     const foundItemIndex = tempList.findIndex((item) => (item.id === itemId));
     tempList.splice(foundItemIndex, 1);
@@ -163,21 +169,81 @@ class Table extends React.Component {
     this.setState({
       tableContent: tempList,
     });
+
+    this.showMessageOnDelete(1);
   }
-  // TODO: Show message on bottom: 1 Deleted Undo
 
   // Delete all selected Items
   deleteSelected() {
+    const selectedItems = this.state.tableContent.filter((e) => e.selected);
+    const totalSelected = selectedItems.length;
+
+    this.setState({
+      contentBeforeDelete: [...this.state.tableContent],
+    });
+
     const remainingItems = this.state.tableContent.filter((e) => !e.selected);
 
     this.setState({
       tableContent: remainingItems,
     });
+
+    this.showMessageOnDelete(totalSelected);
+  }
+
+  // Show message on bottom: 1 Deleted Undo - when a text is deletec
+  showMessageOnDelete(numberDeleted) {
+    const container = document.querySelector('.deleteMessage');
+    container.style.display = "block";
+
+    const spanContainer = document.querySelector('.deleteMessage > span');
+    spanContainer.textContent = `${numberDeleted} Deleted`;
+
+    setTimeout(() => {
+      container.style.display = "None";
+    }, 1000);
+  }
+
+  onUndo() {
+    const content = this.state.contentBeforeDelete;
+
+    this.setState({
+      tableContent: content,
+      contentBeforeDelete: [],
+    });
   }
 
   // Merge selected rows into 1
   mergeSelected() {
-    // const items = this.state.tableContent.filter((e) => e.selected);
+    this.onHoverOut();
+
+    let mergedText = '';
+    let newId = '';
+    let firstSelectedIndex = '';
+
+    this.state.tableContent.forEach((item, index) => {
+      if (item.selected) {
+        if (!firstSelectedIndex) {
+          firstSelectedIndex = index;
+          newId = item.id;
+        }
+        mergedText += item.text;
+        mergedText += ' ';
+      }
+    })
+
+    const remainingItems = this.state.tableContent.filter((e) => !e.selected);
+    const newCell = {
+      id: newId,
+      selected: false,
+      text: mergedText,
+      favorite: false,
+    };
+    remainingItems.splice(firstSelectedIndex, 0, newCell);
+
+    this.setState({
+      tableContent: remainingItems,
+    });
   }
 
   //TODO: Add animations for the favorite and delete maybe?
@@ -201,11 +267,18 @@ class Table extends React.Component {
                     />
                   </th>
                   <th scope="col" className="copied-text-column">Total Items: {this.state.tableContent.length}</th>
-                  {/* TODO: Change icon */}
-                  <th scope="col" className="icon" onClick={() => this.mergeSelected()}>{this.isAnyRowSelected() ? <VscCopy/> : ''}</th>
                   <th
                     scope="col"
-                    className="icon"
+                    className={`icon cursor-pointer`}
+                    onMouseOver={(event) => this.onHover(event, 'Merge All', 10)}
+                    onMouseOut={(event) => this.onHoverOut(event)}
+                    onClick={() => this.mergeSelected(event)}
+                  >
+                    {this.isAnyRowSelected() ? <CgArrowsMergeAltV/> : ''}
+                  </th>
+                  <th
+                    scope="col"
+                    className={`icon cursor-pointer`}
                     onMouseOver={(event) => this.onHover(event, 'Copy All', 10)}
                     onMouseOut={(event) => this.onHoverOut(event)}
                     onClick={(event) => this.copySelected(event)}
@@ -214,7 +287,7 @@ class Table extends React.Component {
                   </th>
                   <th
                     scope="col"
-                    className="red-icon"
+                    className={`red-icon cursor-pointer`}
                     onClick={() => this.deleteSelected()}
                   >
                     {this.isAnyRowSelected() ? <RiDeleteBin6Line/> : ''}
@@ -235,7 +308,7 @@ class Table extends React.Component {
                     </th>
                     {/* TODO: truncate text to single line and display complete one on hover */}
                     <td
-                      className="copied-text-column"
+                      className={`copied-text-column cursor-pointer`}
                       onMouseOver={(event) => this.onHover(event, 'Click to Copy')}
                       onMouseOut={(event) => this.onHoverOut(event)}
                       onClick={(event) => this.copyText(event, item.text)}
@@ -244,13 +317,13 @@ class Table extends React.Component {
                     </td>
                     <th
                       scope="row"
-                      className={`disabled ${item.favorite ? 'yellow-icon' : 'icon'}`}
+                      className={`disabled ${item.favorite ? 'yellow-icon' : 'icon'} cursor-pointer`}
                       onClick={() => this.markFavorite(item.id)}
                     >
                       {item.favorite ? <TiStarFullOutline/> : <TiStarOutline/>}
                     </th>
                     <td
-                      className={`disabled icon`}
+                      className={`disabled icon cursor-pointer`}
                       onClick={() => this.deleteItem(item.id)}
                     >
                       <RiDeleteBin6Line/>
@@ -261,9 +334,13 @@ class Table extends React.Component {
             </table>
           </div>
         </div>
-        {/* <div className="helpText"> Click to Copy </div> */}
         <div className="helpText"> </div>
-        {/* <div className="confirmationText"> Text copied! </div> */}
+        <div className="deleteMessage">
+          <span>
+            1 Deleted
+          </span>
+          <span className={`undo cursor-pointer`} onClick={() => this.onUndo()}>Undo</span>
+        </div>
       </div>
     );
   }
