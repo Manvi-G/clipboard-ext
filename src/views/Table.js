@@ -166,7 +166,7 @@ class Table extends React.Component {
   }
   // TODO: Show message on bottom: 1 Deleted Undo
 
-  // TODO: Delete all selected Items
+  // Delete all selected Items
   deleteSelected() {
     const remainingItems = this.state.tableContent.filter((e) => !e.selected);
 
@@ -212,7 +212,6 @@ class Table extends React.Component {
                   >
                     {this.isAnyRowSelected() ? <VscCopy/> : ''}
                   </th>
-                  {/* TODO: show text copied confirmation message */}
                   <th
                     scope="col"
                     className="red-icon"
