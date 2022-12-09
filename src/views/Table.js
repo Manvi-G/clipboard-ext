@@ -5,6 +5,7 @@ import { VscCopy } from "react-icons/vsc";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
 
+// Copy the items from the webpage - include images
 const copiedItems = [
   {
     id: 1,
@@ -77,42 +78,66 @@ class Table extends React.Component {
     return selectedItems.length > 0;
   }
 
+  updateHelpTexts(event, documentQuery, textContent, padding = 30) {
+    documentQuery.textContent = textContent;
+    documentQuery.style.display = "block";
+    documentQuery.style.position = 'absolute';
+    documentQuery.style.top = `${event.clientY + padding}px`;
+    documentQuery.style.left = `${event.clientX + padding}px`;
+    documentQuery.style.backgroundColor = 'gray';
+    documentQuery.style.color = 'white';
+    documentQuery.style.padding = '5px';
+    documentQuery.style.borderRadius = '5px';
+  }
+
   // Display Help Text message when mouse hovers over a row
-  onHover(event) {
-    const confirmationText = document.querySelector('.confirmationText');
-    confirmationText.style.display = "None";
+  onHover(event, textContent, padding = 30) {
     const helpText = document.querySelector('.helpText');
-    helpText.style.display = "block";
-    helpText.style.position = 'absolute';
-    helpText.style.top = `${event.clientY + 30}px`;
-    helpText.style.left = `${event.clientX + 30}px`;
-    helpText.style.backgroundColor = 'gray';
-    helpText.style.color = 'white';
-    helpText.style.padding = '5px';
-    helpText.style.borderRadius = '5px';
+    this.updateHelpTexts(event, helpText, textContent, padding);
   }
 
   // Remove the help text message on hover out
-  onHoverOut(event) {
+  onHoverOut() {
     const helpText = document.querySelector('.helpText');
     helpText.style.display = "None";
   }
 
+  copyToClipboard(copiedText) {
+    const tempInput = document.createElement('input');
+    document.body.appendChild(tempInput)
+    tempInput.value = copiedText;
+    tempInput.select();
+    document.execCommand('copy', false);
+    tempInput.remove();
+  }
+
   // Copy text to clipboard
-  copyText(event, text) {
-    // TODO: Code to copy to clipboard
+  copyText(event, copiedText) {
+    // Code to copy to clipboard
+    this.copyToClipboard(copiedText);
+    
     // Updates in help text messages
-    const helpText = document.querySelector('.helpText');
-    helpText.style.display = "None";
-    const confirmationText = document.querySelector('.confirmationText');
-    confirmationText.style.display = "block";
-    confirmationText.style.position = 'absolute';
-    confirmationText.style.top = `${event.clientY + 30}px`;
-    confirmationText.style.left = `${event.clientX + 30}px`;
-    confirmationText.style.backgroundColor = 'gray';
-    confirmationText.style.color = 'white';
-    confirmationText.style.padding = '5px';
-    confirmationText.style.borderRadius = '5px';
+    const confirmationText = document.querySelector('.helpText');
+    this.updateHelpTexts(event, confirmationText, 'Text Copied');
+    setTimeout(() => {
+      confirmationText.style.display = "None";
+    }, 1000);
+  }
+
+  // Copy all selected Items with space in between
+  copySelected(event) {
+    const selectedItems = this.state.tableContent.filter((e) => e.selected);
+    let copiedText = '';
+
+    selectedItems.forEach(item => {
+      copiedText += item.text;
+      copiedText += ' ';
+    })
+
+    this.copyToClipboard(copiedText);
+
+    const confirmationText = document.querySelector('.helpText');
+    this.updateHelpTexts(event, confirmationText, 'Text Copied', 10);
     setTimeout(() => {
       confirmationText.style.display = "None";
     }, 1000);
@@ -139,11 +164,7 @@ class Table extends React.Component {
       tableContent: tempList,
     });
   }
-
-  // TODO: Copy all selected Items
-  copySelected() {
-
-  }
+  // TODO: Show message on bottom: 1 Deleted Undo
 
   // TODO: Delete all selected Items
   deleteSelected() {
@@ -154,6 +175,13 @@ class Table extends React.Component {
     });
   }
 
+  // Merge selected rows into 1
+  mergeSelected() {
+    // const items = this.state.tableContent.filter((e) => e.selected);
+  }
+
+  //TODO: Add animations for the favorite and delete maybe?
+
   render() {
     return (
       <div className="container">
@@ -163,6 +191,7 @@ class Table extends React.Component {
               <thead>
                 <tr>
                   <th scope="col">
+                    {/* TODO: Display a dropdown with multiple selection options */}
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -172,8 +201,25 @@ class Table extends React.Component {
                     />
                   </th>
                   <th scope="col" className="copied-text-column">Total Items: {this.state.tableContent.length}</th>
-                  <th scope="col" className="icon" onClick={() => this.copySelected()}>{this.isAnyRowSelected() ? <VscCopy/> : ''}</th>
-                  <th scope="col" className="red-icon" onClick={() => this.deleteSelected()}>{this.isAnyRowSelected() ? <RiDeleteBin6Line/> : ''}</th>
+                  {/* TODO: Change icon */}
+                  <th scope="col" className="icon" onClick={() => this.mergeSelected()}>{this.isAnyRowSelected() ? <VscCopy/> : ''}</th>
+                  <th
+                    scope="col"
+                    className="icon"
+                    onMouseOver={(event) => this.onHover(event, 'Copy All', 10)}
+                    onMouseOut={(event) => this.onHoverOut(event)}
+                    onClick={(event) => this.copySelected(event)}
+                  >
+                    {this.isAnyRowSelected() ? <VscCopy/> : ''}
+                  </th>
+                  {/* TODO: show text copied confirmation message */}
+                  <th
+                    scope="col"
+                    className="red-icon"
+                    onClick={() => this.deleteSelected()}
+                  >
+                    {this.isAnyRowSelected() ? <RiDeleteBin6Line/> : ''}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -188,9 +234,10 @@ class Table extends React.Component {
                         onChange={(e) => this.onItemCheck(e, item)}
                       />
                     </th>
+                    {/* TODO: truncate text to single line and display complete one on hover */}
                     <td
                       className="copied-text-column"
-                      onMouseOver={(event) => this.onHover(event)}
+                      onMouseOver={(event) => this.onHover(event, 'Click to Copy')}
                       onMouseOut={(event) => this.onHoverOut(event)}
                       onClick={(event) => this.copyText(event, item.text)}
                     >
@@ -215,8 +262,9 @@ class Table extends React.Component {
             </table>
           </div>
         </div>
-        <div className="helpText"> Click to Copy </div>
-        <div className="confirmationText"> Text copied! </div>
+        {/* <div className="helpText"> Click to Copy </div> */}
+        <div className="helpText"> </div>
+        {/* <div className="confirmationText"> Text copied! </div> */}
       </div>
     );
   }

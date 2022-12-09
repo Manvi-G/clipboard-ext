@@ -6,16 +6,18 @@
 .search-bar {
   margin: 20px;
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 
   svg {
-    position: absolute;
+    // position: absolute;
     color: gray;
     height: 0.75rem;
-    padding-top: 10px;
   }
 
   input {
-    padding-left: 20px;
+    padding-left: 5px;
     border-radius: 8px;
     border: 1px solid gray;
     width: 80%;

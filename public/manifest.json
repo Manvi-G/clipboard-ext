@@ -6,11 +6,14 @@
     "48": "logo192.png",
    "128": "logo512.png"
   },
-  "permissions": [],
   "manifest_version": 3,
   "version": "1.0.0",
   "action": {
     "default_popup": "index.html",
     "default_title": "Your personal clipboard"
-  }
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
 }
