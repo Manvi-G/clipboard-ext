@@ -27,6 +27,7 @@ Below tools used:
 - Animations: There are 2 places where animations are added - one to the header and one when a text is made favorite. I wrote the CSS to make things animate. It adds an element of fun and interactivity to the website.
 - SASS: I used SASS instead of plain CSS since it allows more capabilities, makes the code look cleaner and more understandable, and allows for nested rules and mixins.
 - Accessibility: The website is 100% keyboard accessible. Since it is an extension, people might want to interact with it with a keyboard. I used "tab index", "enter events", "onFocus", "onBlur" events, etc to make it keyboard-accessible.
+- ESLINT: I downloaded the eslint library to understand more about how rules work and how we can manipulate them and make our code better.
 
 # PART 4: ITERATIONS
 I went through many iterations before the final design. The first iteration had tabs of All and Favorites on Top, and the header had different icons. It also had a separate copy button for each row. The next iteration replaced the icons with the Actions menu and allowed the user to copy the row just by clicking on it. All main actions were shifted to the top menu. After further testing, the final design had only a search bar at the top. Favorites and delete were present for each row on the right side, and only required functions were converted into icons and present in the header icon.
