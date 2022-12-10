@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/clipboard-ext/static/css/main.ec64d6cf.css",
-    "main.js": "/clipboard-ext/static/js/main.1597d0d8.js",
+    "main.css": "/clipboard-ext/static/css/main.d6803222.css",
+    "main.js": "/clipboard-ext/static/js/main.c659008c.js",
     "static/js/787.7efd31bd.chunk.js": "/clipboard-ext/static/js/787.7efd31bd.chunk.js",
     "index.html": "/clipboard-ext/index.html",
-    "main.ec64d6cf.css.map": "/clipboard-ext/static/css/main.ec64d6cf.css.map",
-    "main.1597d0d8.js.map": "/clipboard-ext/static/js/main.1597d0d8.js.map",
+    "main.d6803222.css.map": "/clipboard-ext/static/css/main.d6803222.css.map",
+    "main.c659008c.js.map": "/clipboard-ext/static/js/main.c659008c.js.map",
     "787.7efd31bd.chunk.js.map": "/clipboard-ext/static/js/787.7efd31bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec64d6cf.css",
-    "static/js/main.1597d0d8.js"
+    "static/css/main.d6803222.css",
+    "static/js/main.c659008c.js"
   ]
 }
