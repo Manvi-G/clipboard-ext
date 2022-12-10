@@ -72,20 +72,23 @@
   display: none;
   text-align: end;
   padding-top: 25px;
+  justify-content: end;
 
   span {
     background: gray;
     padding: 10px;
       border-radius: 8px 0 0 8px;
       color: white;
+  }
 
-    &.undo {
-      border-radius: 0 8px 8px 0;
-      padding-left: 0;
-      color: lightblue;
-      font-style: oblique;
-      text-decoration: underline;
-    }
+  .undo {
+    border-radius: 0 8px 8px 0;
+    padding-left: 0;
+    color: lightblue;
+    font-style: oblique;
+    text-decoration: underline;
+    background: gray!important;
+    border: none;
   }
 }
 

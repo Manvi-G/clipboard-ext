@@ -192,10 +192,13 @@ class Table extends React.Component {
   // Show message on bottom: 1 Deleted Undo - when a text is deleted
   showMessageOnDelete(numberDeleted) {
     const container = document.querySelector('.deleteMessage');
-    container.style.display = "block";
+    container.style.display = "flex";
 
     const spanContainer = document.querySelector('.deleteMessage > span');
     spanContainer.textContent = `${numberDeleted} Deleted`;
+
+    const undoContainer = document.querySelector('.deleteMessage > .undo');
+    undoContainer.focus();
 
     setTimeout(() => {
       container.style.display = "None";
@@ -271,6 +274,7 @@ class Table extends React.Component {
                       checked={this.state.allChecked}
                       id="mastercheck"
                       onChange={(e) => this.onMasterCheck(e)}
+                      tabIndex="1"
                     />
                   </th>
                   <th scope="col" className="copied-text-column">Total Items: {this.props.copiedItems.length}</th>
@@ -279,8 +283,12 @@ class Table extends React.Component {
                     className={`icon cursor-pointer`}
                     onMouseOver={(event) => this.onHover(event, 'Merge All', 10)}
                     onMouseOut={() => this.onHoverOut()}
-                    onClick={() => this.mergeSelected(event)}
-                  >
+                    onClick={() => this.mergeSelected()}
+                    tabIndex={this.isAnyRowSelected() ? '1' : ''}
+                    onFocus={(event) => this.onHover(event, 'Merge All', 10)}
+                    onBlur={() => this.onHoverOut()}
+                    onKeyUp={(event) => { if(event.keyCode === 32) this.mergeSelected() }}
+                    >
                     {this.isAnyRowSelected() ? <CgArrowsMergeAltV/> : ''}
                   </th>
                   <th
@@ -289,6 +297,10 @@ class Table extends React.Component {
                     onMouseOver={(event) => this.onHover(event, 'Copy All', 10)}
                     onMouseOut={() => this.onHoverOut()}
                     onClick={(event) => this.copySelected(event)}
+                    tabIndex={this.isAnyRowSelected() ? '1' : ''}
+                    onFocus={(event) => this.onHover(event, 'Copy All', 10)}
+                    onBlur={() => this.onHoverOut()}
+                    onKeyUp={(event) => { if(event.keyCode === 32) this.copySelected(event) }}
                   >
                     {this.isAnyRowSelected() ? <VscCopy/> : ''}
                   </th>
@@ -296,6 +308,8 @@ class Table extends React.Component {
                     scope="col"
                     className={`red-icon cursor-pointer`}
                     onClick={() => this.deleteSelected()}
+                    tabIndex={this.isAnyRowSelected() ? '1' : ''}
+                    onKeyUp={(event) => { if(event.keyCode === 32) this.deleteSelected() }}
                   >
                     {this.isAnyRowSelected() ? <RiDeleteBin6Line/> : ''}
                   </th>
@@ -311,6 +325,7 @@ class Table extends React.Component {
                         className="form-check-input"
                         id="rowcheck{item.id}"
                         onChange={(e) => this.onItemCheck(e, item)}
+                        tabIndex="1"
                       />
                     </th>
                     <td
@@ -318,6 +333,10 @@ class Table extends React.Component {
                       onMouseOver={(event) => this.onHover(event, 'Click to Copy', 30, item.id)}
                       onMouseOut={() => this.onHoverOut()}
                       onClick={(event) => this.copyText(event, item.text)}
+                      onFocus={(event) => this.onHover(event, 'Press Space to Copy', 30, item.id)}
+                      onBlur={() => this.onHoverOut()}
+                      tabIndex="1"
+                      onKeyUp={(event) => { if(event.keyCode === 32) this.copyTextOnSpace(event, item.text) }}
                     >
                       {item.text}
                     </td>
@@ -325,12 +344,16 @@ class Table extends React.Component {
                       scope="row"
                       className={`disabled ${item.favorite ? 'yellow-icon' : 'icon'} cursor-pointer`}
                       onClick={() => this.markFavorite(item.id)}
+                      tabIndex="1"
+                      onKeyUp={(event) => { if(event.keyCode === 32) this.markFavorite(item.id) }}
                     >
                       {item.favorite ? <TiStarFullOutline/> : <TiStarOutline/>}
                     </th>
                     <td
                       className={`disabled icon cursor-pointer`}
                       onClick={() => this.deleteItem(item.id)}
+                      tabIndex="1"
+                      onKeyUp={(event) => { if(event.keyCode === 32) this.deleteItem(item.id) }}
                     >
                       <RiDeleteBin6Line/>
                     </td>
@@ -345,7 +368,7 @@ class Table extends React.Component {
           <span>
             1 Deleted
           </span>
-          <span className={`undo cursor-pointer`} onClick={() => this.onUndo()}>Undo</span>
+          <button className={`undo cursor-pointer`} onClick={() => this.onUndo()}>Undo</button>
         </div>
       </div>
     );

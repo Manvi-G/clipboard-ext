@@ -1,6 +1,8 @@
 # See Deployed website Details below
 Deployed website for React App: https://Manvi-G.github.io/clipboard-ext/
 
+Write-Up of the project: [Write Up](./WriteUp.md)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
