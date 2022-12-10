@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/clipboard-ext/static/css/main.d6803222.css",
+    "main.js": "/clipboard-ext/static/js/main.c659008c.js",
+    "static/js/787.7efd31bd.chunk.js": "/clipboard-ext/static/js/787.7efd31bd.chunk.js",
+    "index.html": "/clipboard-ext/index.html",
+    "main.d6803222.css.map": "/clipboard-ext/static/css/main.d6803222.css.map",
+    "main.c659008c.js.map": "/clipboard-ext/static/js/main.c659008c.js.map",
+    "787.7efd31bd.chunk.js.map": "/clipboard-ext/static/js/787.7efd31bd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d6803222.css",
+    "static/js/main.c659008c.js"
+  ]
+}
