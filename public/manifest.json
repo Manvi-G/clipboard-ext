@@ -12,6 +12,15 @@
     "default_popup": "index.html",
     "default_title": "Your personal clipboard"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "permissions": [
     "tabs",
     "<all_urls>"

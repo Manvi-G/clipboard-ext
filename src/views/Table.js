@@ -7,45 +7,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
 import { CgArrowsMergeAltV } from "react-icons/cg";
 
-// TODO: Copy the items from the webpage - include images
-const copiedItems = [
-  {
-    id: 1,
-    selected: false,
-    text: 'This is your copied text 1',
-    favorite: false,
-  },
-  {
-    id: 2,
-    selected: false,
-    text: 'This is your copied text 2',
-    favorite: false,
-  },
-  {
-    id: 3,
-    selected: false,
-    text: 'This is your copied text 3',
-    favorite: false,
-  },
-  {
-    id: 4,
-    selected: false,
-    text: 'This is your copied text 4.This is your copied text 4.This is your copied text 4This is your copied text 4.This is your copied text 4.This is your copied text 4',
-    favorite: false,
-  },
-  {
-    id: 5,
-    selected: false,
-    text: 'This is your copied text 5',
-    favorite: false,
-  },
-];
-
 class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableContent: copiedItems,
       allChecked: false,
       contentBeforeDelete: [],
     };
@@ -53,18 +18,18 @@ class Table extends React.Component {
 
   // Select/ UnSelect All Table rows
   onMasterCheck(e) {
-    let tempList = this.state.tableContent;
+    let tempList = this.props.copiedItems;
     tempList.map((item) => (item.selected = e.target.checked));
+    this.props.updateItems(tempList);
 
     this.setState({
       allChecked: e.target.checked,
-      tableContent: tempList,
     });
   }
 
   // Update each row state and Master Checkbox State
   onItemCheck(e, currentItem) {
-    let tempList = this.state.tableContent;
+    let tempList = this.props.copiedItems;
     tempList.map((item) => {
       if (item.id === currentItem.id) {
         item.selected = e.target.checked;
@@ -72,18 +37,18 @@ class Table extends React.Component {
       return item;
     });
 
-    const totalItems = this.state.tableContent.length;
+    const totalItems = this.props.copiedItems.length;
     const totalCheckedItems = tempList.filter((e) => e.selected).length;
+    this.props.updateItems(tempList);
 
     this.setState({
       allChecked: totalItems === totalCheckedItems,
-      tableContent: tempList,
     });
   }
 
   // Return if any row is selected - used to show hidden icons on header
   isAnyRowSelected() {
-    const selectedItems = this.state.tableContent.filter((e) => e.selected);
+    const selectedItems = this.props.copiedItems.filter((e) => e.selected);
     return selectedItems.length > 0;
   }
 
@@ -154,7 +119,7 @@ class Table extends React.Component {
 
   // Copy all selected Items with space in between
   copySelected(event) {
-    const selectedItems = this.state.tableContent.filter((e) => e.selected);
+    const selectedItems = this.props.copiedItems.filter((e) => e.selected);
     let copiedText = '';
 
     selectedItems.forEach(item => {
@@ -182,48 +147,44 @@ class Table extends React.Component {
 
   // Mark an item as favorite
   markFavorite(itemId) {
-    let tempList = this.state.tableContent;
+    let tempList = this.props.copiedItems;
     const foundItem = tempList.find((item) => (item.id === itemId));
     foundItem.favorite = !foundItem.favorite;
 
-    this.setState({
-      tableContent: tempList,
-    });
+    this.props.updateItems(tempList);
 
-    this.makeItParty();
+    if (foundItem.favorite) {
+      this.makeItParty();
+    }
   }
 
   // Delete an item from the copiedText list
   deleteItem(itemId) {
     this.setState({
-      contentBeforeDelete: [...this.state.tableContent],
+      contentBeforeDelete: [...this.props.copiedItems],
     });
 
-    let tempList = this.state.tableContent;
+    let tempList = this.props.copiedItems;
     const foundItemIndex = tempList.findIndex((item) => (item.id === itemId));
     tempList.splice(foundItemIndex, 1);
 
-    this.setState({
-      tableContent: tempList,
-    });
+    this.props.updateItems(tempList);
 
     this.showMessageOnDelete(1);
   }
 
   // Delete all selected Items
   deleteSelected() {
-    const selectedItems = this.state.tableContent.filter((e) => e.selected);
+    const selectedItems = this.props.copiedItems.filter((e) => e.selected);
     const totalSelected = selectedItems.length;
 
     this.setState({
-      contentBeforeDelete: [...this.state.tableContent],
+      contentBeforeDelete: [...this.props.copiedItems],
     });
 
-    const remainingItems = this.state.tableContent.filter((e) => !e.selected);
+    const remainingItems = this.props.copiedItems.filter((e) => !e.selected);
 
-    this.setState({
-      tableContent: remainingItems,
-    });
+    this.props.updateItems(remainingItems);
 
     this.showMessageOnDelete(totalSelected);
   }
@@ -244,8 +205,9 @@ class Table extends React.Component {
   onUndo() {
     const content = this.state.contentBeforeDelete;
 
+    this.props.updateItems(content);
+
     this.setState({
-      tableContent: content,
       contentBeforeDelete: [],
     });
   }
@@ -258,9 +220,9 @@ class Table extends React.Component {
     let newId = '';
     let firstSelectedIndex = '';
 
-    this.state.tableContent.forEach((item, index) => {
+    this.props.copiedItems.forEach((item, index) => {
       if (item.selected) {
-        if (!firstSelectedIndex) {
+        if (firstSelectedIndex === '') {
           firstSelectedIndex = index;
           newId = item.id;
         }
@@ -269,7 +231,7 @@ class Table extends React.Component {
       }
     })
 
-    const remainingItems = this.state.tableContent.filter((e) => !e.selected);
+    const remainingItems = this.props.copiedItems.filter((e) => !e.selected);
     const newCell = {
       id: newId,
       selected: false,
@@ -278,9 +240,7 @@ class Table extends React.Component {
     };
     remainingItems.splice(firstSelectedIndex, 0, newCell);
 
-    this.setState({
-      tableContent: remainingItems,
-    });
+    this.props.updateItems(remainingItems);
   }
 
   render() {
@@ -313,7 +273,7 @@ class Table extends React.Component {
                       onChange={(e) => this.onMasterCheck(e)}
                     />
                   </th>
-                  <th scope="col" className="copied-text-column">Total Items: {this.state.tableContent.length}</th>
+                  <th scope="col" className="copied-text-column">Total Items: {this.props.copiedItems.length}</th>
                   <th
                     scope="col"
                     className={`icon cursor-pointer`}
@@ -342,7 +302,7 @@ class Table extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.tableContent.map((item) => (
+                {this.props.copiedItems.map((item) => (
                   <tr key={item.id} className={item.selected ? "selected" : ""}>
                     <th scope="row">
                       <input
