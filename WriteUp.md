@@ -21,3 +21,21 @@ Below are the interaction types implemented -
 - Delete Icon: It is displayed on each row and deletes a particular row. Upon deletion, there will be a message below indicating the number of rows deleted and an Undo option that can undo the action.
 - Text truncation: If the text is too long, it is truncated by default, and only the first half is displayed. If the user hovers over the row, the row broadens to show the entire content.
 
+# PART 3: EXTERNAL TOOLS
+Below tools used:
+- React Icons Library: All the icons displayed on the webpage are through this react library. I chose it to maintain consistency in the icons and make the website look nice. The user understands these icons, so extra text is not required.
+- Animations: There are 2 places where animations are added - one to the header and one when a text is made favorite. I wrote the CSS to make things animate. It adds an element of fun and interactivity to the website.
+- SASS: I used SASS instead of plain CSS since it allows more capabilities, makes the code look cleaner and more understandable, and allows for nested rules and mixins.
+- Accessibility: The website is 100% keyboard accessible. Since it is an extension, people might want to interact with it with a keyboard. I used "tab index", "enter events", "onFocus", "onBlur" events, etc to make it keyboard-accessible.
+
+# PART 4: ITERATIONS
+I went through many iterations before the final design. The first iteration had tabs of All and Favorites on Top, and the header had different icons. It also had a separate copy button for each row. The next iteration replaced the icons with the Actions menu and allowed the user to copy the row just by clicking on it. All main actions were shifted to the top menu. After further testing, the final design had only a search bar at the top. Favorites and delete were present for each row on the right side, and only required functions were converted into icons and present in the header icon.
+![Iteration1](images/Iteration1.png)
+![Iteration2](images/Iteration2.png)
+![Iteration3](images/Iteration3.png)
+
+# PART 5: CHALLENGES
+I faced a couple of challenges -
+- It took a great amount of effort to understand how to listen to chrome runtime copy events into the Clipboard
+- It also took some time to understand how to implement keyboard accessibility.
+- Animations were also a learning since it took time to implement them from scratch and understand how things move. 

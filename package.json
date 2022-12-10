@@ -1,6 +1,6 @@
 {
   "homepage": "https://Manvi-G.github.io/clipboard-ext/",
-  "namem": "clipboard-ext",
+  "name": "clipboard-ext",
   "version": "0.1.0",
   "description": "Clipboard extension that helps keep track of all your copied texts",
   "private": true,
