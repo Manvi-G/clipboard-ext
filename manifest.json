@@ -1,0 +1,28 @@
+{
+  "short_name": "Your personal clipboard",
+  "name": "Your personal clipboard",
+  "icons": {
+    "16": "favicon.ico",
+    "48": "logo192.png",
+   "128": "logo512.png"
+  },
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Your personal clipboard"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
+}

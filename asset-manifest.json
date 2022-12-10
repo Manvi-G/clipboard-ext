@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/clipboard-ext/deployed-solution-hw6/static/css/main.ec64d6cf.css",
+    "main.js": "/clipboard-ext/deployed-solution-hw6/static/js/main.efce0e66.js",
+    "static/js/787.7efd31bd.chunk.js": "/clipboard-ext/deployed-solution-hw6/static/js/787.7efd31bd.chunk.js",
+    "index.html": "/clipboard-ext/deployed-solution-hw6/index.html",
+    "main.ec64d6cf.css.map": "/clipboard-ext/deployed-solution-hw6/static/css/main.ec64d6cf.css.map",
+    "main.efce0e66.js.map": "/clipboard-ext/deployed-solution-hw6/static/js/main.efce0e66.js.map",
+    "787.7efd31bd.chunk.js.map": "/clipboard-ext/deployed-solution-hw6/static/js/787.7efd31bd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ec64d6cf.css",
+    "static/js/main.efce0e66.js"
+  ]
+}
