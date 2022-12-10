@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/clipboard-ext/static/css/main.d6803222.css",
-    "main.js": "/clipboard-ext/static/js/main.492643ed.js",
-    "static/js/787.b3d3872f.chunk.js": "/clipboard-ext/static/js/787.b3d3872f.chunk.js",
-    "index.html": "/clipboard-ext/index.html",
-    "main.d6803222.css.map": "/clipboard-ext/static/css/main.d6803222.css.map",
-    "main.492643ed.js.map": "/clipboard-ext/static/js/main.492643ed.js.map",
-    "787.b3d3872f.chunk.js.map": "/clipboard-ext/static/js/787.b3d3872f.chunk.js.map"
+    "main.css": "/clipboard-ext/deployed-solution/static/css/main.d6803222.css",
+    "main.js": "/clipboard-ext/deployed-solution/static/js/main.da39297b.js",
+    "static/js/787.b3d3872f.chunk.js": "/clipboard-ext/deployed-solution/static/js/787.b3d3872f.chunk.js",
+    "index.html": "/clipboard-ext/deployed-solution/index.html",
+    "main.d6803222.css.map": "/clipboard-ext/deployed-solution/static/css/main.d6803222.css.map",
+    "main.da39297b.js.map": "/clipboard-ext/deployed-solution/static/js/main.da39297b.js.map",
+    "787.b3d3872f.chunk.js.map": "/clipboard-ext/deployed-solution/static/js/787.b3d3872f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d6803222.css",
-    "static/js/main.492643ed.js"
+    "static/js/main.da39297b.js"
   ]
 }
