@@ -10,7 +10,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // TODO: Copy the items from the webpage - include images
       allItems: [
         {
           id: 1,
@@ -109,7 +108,12 @@ class App extends React.Component {
           {/* Search Bar */}
           <div className='search-bar'>
             <BsSearch />
-            <input type="text" id="search-input-box" placeholder='Search...' onChange={() => this.filterSearch()} tabIndex="1"></input>
+            <input
+              type="text"
+              id="search-input-box"
+              placeholder='Search...'
+              onChange={() => this.filterSearch()}
+              tabIndex="1"/>
           </div>
         </header>
 

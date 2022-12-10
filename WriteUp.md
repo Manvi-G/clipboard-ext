@@ -10,5 +10,14 @@ There are also help texts that help users understand the extension's flow and pr
 
 The website is also 100% accessible by keyboard. A keyboard-only user can navigate through the extension easily, access all the features, and see the helpful tips on hover for mouse users.
 
-
+# PART 2: INTERACTIONS 
+Below are the interaction types implemented -
+- Search Input: There is a search bar on top. As you enter a text, the below table content is filtered based on the input.
+- Checkboxes: There is a select-all checkbox and individual checkboxes for all rows. If you select any checkbox, options are displayed on the table header.
+- Merge-All Icon: If you select multiple rows, the first icon displayed on the table header is the Merge All Icon. If you click on it, it will merge the selected rows.
+- Copy-All Icon: If you select multiple rows, the second icon displayed on the table header is the Copy All Icon. If you click on it, it will copy the content of the selected rows with space in between.
+- Delete-All Icon: If you select multiple rows, the last icon displayed on the table header is the Delete All Icon. If you click on it, it will delete the selected rows. Upon deletion, there will be a message below indicating the number of rows deleted and an Undo option that can undo the action.
+- Star Icon: It is displayed on each row, and it marks the row as a favorite. A small party-type animation appears when a row is marked favorite.
+- Delete Icon: It is displayed on each row and deletes a particular row. Upon deletion, there will be a message below indicating the number of rows deleted and an Undo option that can undo the action.
+- Text truncation: If the text is too long, it is truncated by default, and only the first half is displayed. If the user hovers over the row, the row broadens to show the entire content.
 
