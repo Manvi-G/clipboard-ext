@@ -1,5 +1,5 @@
 # See Deployed website Details below
-Deployed website for React App: https://Manvi-G.github.io/clipboard-ext/
+Deployed website for React App: https://manvi-g.github.io/clipboard-ext/deployed-solution/
 
 Write-Up of the project: [Write Up](./WriteUp.md)
 
