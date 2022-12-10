@@ -202,7 +202,7 @@ class Table extends React.Component {
 
     setTimeout(() => {
       container.style.display = "None";
-    }, 1000);
+    }, 2000);
   }
 
   onUndo() {

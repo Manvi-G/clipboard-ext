@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Manvi-G.github.io/clipboard-ext/",
+  "homepage": "https://Manvi-G.github.io/clipboard-ext/deployed-solution",
   "name": "clipboard-ext",
   "version": "0.1.0",
   "description": "Clipboard extension that helps keep track of all your copied texts",
@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -b main -e deployed-solution"
   },
   "eslintConfig": {
     "extends": [
